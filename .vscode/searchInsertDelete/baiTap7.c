@@ -30,7 +30,7 @@ int main(){
     //khai báo, nhập
     int n,m;
     scanf("%d",&n);
-    char a[100][100];
+    char a[n][100];
     for(int i=0;i<n;i++){
         do{
             fgets(a[i],sizeof(a[i]),stdin);
