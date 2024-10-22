@@ -20,10 +20,9 @@ int strToInt(char *str){
 }
 //hàm này để tách mã số sp ra
 int serialNumber(char *str){
-    char result[3];
+    char result[2];
     result[0]=str[0];
     result[1]=str[1];
-    result[2]='\0';
     return strToInt(result);
 }
 int main(){
