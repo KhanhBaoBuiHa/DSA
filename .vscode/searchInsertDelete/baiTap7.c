@@ -7,6 +7,7 @@ void insert(char str[][100],char insertStr[100],int k,int *n){
     strcpy(str[k], insertStr);
     (*n)++;
 }
+// đổi kiểu dữ liệu từ chuỗi sang số nguyên
 int strToInt(char *str){
         int rs=0;
         for(int i=0;str[i];i++){
@@ -18,7 +19,7 @@ int strToInt(char *str){
         }
         return rs;
 }
-//hàm này để tách mã số sp ra
+//hàm này để tách mã số sp ra ở kiểu chuỗi và đổi từ chuỗi sang số nguyên
 int serialNumber(char *str){
     char result[2];
     result[0]=str[0];
