@@ -27,15 +27,13 @@ int find(char s[],char str[]){
 int main(){
     //khai báo và nhập
     char str[1000];
-    int k,maDoc,cnt[100];
-    fgets(str,sizeof(str),stdin);
-    str[strcspn(str,"\n")]='\0';
+    int k,cnt[100];
+    scanf("%s",&str);
     scanf("%d",&k);
     getchar();
     char s[k][100];
     for(int i=0;i<k;i++){
-        fgets(s[i],sizeof(s[i]),stdin);
-        s[i][strcspn(s[i],"\n")]='\0';
+        scanf("%s",&s[i]);
     }
     //xuất
     for(int i=0;i<k;i++){
