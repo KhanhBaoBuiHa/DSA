@@ -1,6 +1,15 @@
 #include "stdio.h"
 #include "string.h"
 #include "stdbool.h"
+/*
+void delete(){
+    for(int i=0;i<k;i++){
+       for(int j=0;j<cnt;j++){
+           str[]
+       }
+    }
+}
+*/
 //hàm này để tách chuỗi str thành chuỗi con có độ dài bằng mã độc
 void tachChuoi(char* result,char str[],int start,int l){
     for(int i=0;i<l;i++){
