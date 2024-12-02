@@ -16,10 +16,11 @@ bool soSanh(char temp[],char s[]){
     return 1;
 }
 //hàm này để tìm kiếm mã độc
-int find(char s[],char str[]){
-    for(int i=0;i<strlen(str)-strlen(s);i++){
-        char temp[strlen(s)+1];
-        tachChuoi(temp,str,i,strlen(s));
+int find(char s[],char str[], int start){
+    int lenS=strlen(s);
+    for(int i=start;i<strlen(str)-strlen(s);i++){
+        char temp[lenS+1];
+        tachChuoi(temp,str,i,lenS);
         if(soSanh(temp,s)) return i;
     }
     return -1;
@@ -27,23 +28,26 @@ int find(char s[],char str[]){
 int main(){
     //khai báo và nhập
     char str[1000];
-    int k,maDoc,cnt[100];
-    fgets(str,sizeof(str),stdin);
-    str[strcspn(str,"\n")]='\0';
+    int k,cnt[100];
+    scanf("%s",&str);
     scanf("%d",&k);
-    getchar();
     char s[k][100];
     for(int i=0;i<k;i++){
-        fgets(s[i],sizeof(s[i]),stdin);
-        s[i][strcspn(s[i],"\n")]='\0';
+        scanf("%s",&s[i]);
     }
     //xuất
     for(int i=0;i<k;i++){
-        int cnt=0;
-        int index=find(s[i],str);
-        if(index!=-1){
-            cnt++;
-            printf("%d %s %d\n",cnt,s[i],index);
+        int cnt=0,index[100],pos=0,currentPos=0;
+        while((currentPos=find(s[i],str,pos))!=-1){
+            index[cnt++]=currentPos;
+            pos=currentPos+1;
+        }
+        if(cnt!=0){
+            printf("%d %s",cnt,s[i]);
+            for(int j=0;j<cnt;j++){
+                printf(" %d",index[j]);
+            }
+            printf("\n");
         }else{
             printf("0 %s\n",s[i]);
         }

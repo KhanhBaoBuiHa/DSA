@@ -1,0 +1,16 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+Tích phân ba lớp được cho bởi:
+\[
+I = \int_{0}^{2} \int_{0}^{1} \int_{z}^{4} 2x^3 z \cos(y^2) \, dy \, dx \, dz
+\]
+
+Sau khi đổi cận thành \( dz\,dy\,dx \), ta được:
+\[
+I = \int_{0}^{1} \int_{0}^{4} \int_{0}^{\min(y, 2)} 2x^3 z \cos(y^2) \, dz \, dy \, dx
+\]
+
+\end{document}

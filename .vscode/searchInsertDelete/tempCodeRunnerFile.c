@@ -8,15 +8,15 @@ void tachChuoi(char* result,char str[],int start,int l){
     }
     result[l]='\0';
 }
-//hàm này để so sánh 2 chuỗi có giống nhau không
+//hàm này để so sánh 2 chuỗi
 bool soSanh(char temp[],char s[]){
     for(int i=0;i<strlen(s);i++){
-        if(temp[i]!=s[i]) return false;
+        if(temp[i]!=s[i]) return 0;
     }
-    return true;
+    return 1;
 }
 //hàm cơ bản để chèn
-void insert(char *a, int *n, char value, int index){
+void insertArray(char *a, int *n, char value, int index){
     for(int i=*n;i>index;i--){
         a[i]=a[i-1];
     }
@@ -27,14 +27,13 @@ void insert(char *a, int *n, char value, int index){
 void insertArray(int k,char s[][100],char str[100],int *n){
     for(int i=0;i<k;i++){
         int lenS=strlen(s[i]);
-        for(int j=0;j<strlen(str);j++){ 
+        for(int j=0;i<strlen(str);i++){ 
             char temp[lenS+1];
             tachChuoi(temp,str,j,lenS);
             if(soSanh(temp,s[i])){
-                for(int q=0;q<=lenS;q++){
-                    char a=str[j+q]+1;
-                    insert(str,n,a,j+q+1);
-                    j++;
+                for(int q=i;i<=lenS;i++){
+                    char a=str[q]+1;
+                    insertArray(str,&n,a,str[q]+1);
                 }
             }
         }
@@ -43,7 +42,7 @@ void insertArray(int k,char s[][100],char str[100],int *n){
 int main(){
     //khai báo và nhập
     char str[1000];
-    int k;
+    int k,cnt[100];
     scanf("%s",&str);
     scanf("%d",&k);
     char s[k][100];

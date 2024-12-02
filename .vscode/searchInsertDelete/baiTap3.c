@@ -23,6 +23,6 @@ int main(){
     if(search(serialKey,str,n)==-1){
         printf("Not Found");
     }else{
-        printf("Found at index %d",search(serialKey,str,n));
+        printf("Found %s at index %d",str,search(serialKey,str,n));
     }
 }
