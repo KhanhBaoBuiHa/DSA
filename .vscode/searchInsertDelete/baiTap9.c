@@ -30,4 +30,8 @@ int main(){
         }
         printf("\nDelete %.2f %.2f at %d",x1,x2,index);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 2feef14a632dcf41a166be9f0d75937b674767f7
