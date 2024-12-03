@@ -1,0 +1,8 @@
+comps : so sánh (chỉ cần là gặp nếu a>b là đã tính rồi, ko cần phải thỏa đk)
+assigns : gán (thấy 1 biến gán cho một giá trị thì đã tính rồi)
+swaps : hoán đổi 
+shifts : dịch chuyển
+       
+[1] [2] [3] [5]
+[3] qua vt số 1 trong mảng
+thì là 1 lần dịch chuyển
