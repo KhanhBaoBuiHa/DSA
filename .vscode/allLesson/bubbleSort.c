@@ -38,7 +38,7 @@ int main() {
     for ( int j = 0 ; j < n ; j++){
     printf("%d ",arr[j]);
     }
-    printf("\n Total Swap = %d;",swap);
+    printf("\nTotal Swap = %d;",swap);
     printf("Total comps = %d;",comps);
     printf("Total assigns = %d",assigns);
     return 0;
