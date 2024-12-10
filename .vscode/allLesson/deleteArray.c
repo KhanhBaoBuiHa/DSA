@@ -23,5 +23,5 @@ int main(){
     for(int i = 0; i < n; i++){
         printf("%d ",a[i]);
     }
-     printf("Total assigns : %d ", assigns);
+    printf("Total assigns : %d ", assigns);
 }

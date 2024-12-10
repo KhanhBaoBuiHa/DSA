@@ -6,45 +6,24 @@ void initializeArray(int arr[], int n, int min, int max) {
         arr[i] = min +(rand() % (max - min + 1));
     }
 }
-void f(int a[], int n, int b[],int *comps)
-    {
-        for (int i = 0; i < n; i++)
-        {
-            for (int j = 0; j < n; j++)
-            {
-                (*comps)++;
-                if (a[i] == a[j])
-                {
-                    b[a[i]]++;
-                }
-            }
+void kiemTra(int a[],int n,int value,int *comps){
+    for(int i=0;i<n;i++){
+        (*comps)++;
+        if(a[i]<value){
+            break;
         }
     }
-int main()
-{
+}
+int main(){
     time_t t;
     srand((unsigned)time(&t));
-    int arr[20],b[100], n = 20;
-    int max=100,min=-100;
-    int k[3] = {100,1000,10000};
-    for (int i=0; i<3; i++)
-    {
-        printf("k=%d \n", k[i]);
-        int fre[21] = {0};
-        for(int j=0; j<k[i]; j++) {
-            //Sinh mảng
-            initializeArray(arr, n, min, max);
-            int comps=0;
-            f(arr,n,b,&comps);
-             //Gọi hàm tính comps
-            (fre[comps])++; //tăng comp trong bảng tần số
-        }
-        float A=Average(fre, n+1, k[i]); 
-        for (int j = 1; j <= 20; j++)
-        {
-            printf("%d:%d ", j, fre[j]);
-        }
-        printf("Average: %0.3f\n", A);
+    int a[10],n=10;
+    int value =10,sum=0;
+    for(int i=0;i<10000;i++){
+        initializeArray(a,n,0,20);
+        int comps=0;
+        kiemTra(a,n,value,&comps);
+        sum+=comps;
     }
-    return 0;
-}   
+    printf("Average comps : %.2f",(float)sum/10000);
+}
