@@ -6,57 +6,59 @@ void initializeArray(int arr[], int n, int min, int max) {
         arr[i] = min +(rand() % (max - min + 1));
     }
 }
-void bubbleSort(int arr[], int n, int* swap,int *comps,int *assigns){
+/*
+void bubbleSort(int arr[], int n){
     int temp;
     for(int i = 0 ; i < n ; i++){
         for(int j = 0 ; j < n - 1 -i ; j++){
-            (*comps)++;
-            if(arr[j] > arr[j+1]){
-                (*swap)++;
+            if(arr[j] < arr[j+1]){
                 temp = arr[j];
                 arr[j] = arr[j+1];
                 arr[j+1] = temp;
-                (*assigns)+=3;
             }
         }
     }
 }
-void selectionSort(int arr[], int n,int *swap,int *comps,int *assigns) {
+*/
+/*
+void selectionSort(int arr[], int n) {
     for (int i = 0; i < n - 1; i++) {
-        int minIndex = i;
+        int maxIndex = i;
         for (int j = i + 1; j < n; j++) {
-            (*comps)++;
-            if (arr[j] < arr[minIndex]) {
-                minIndex = j;
+            if (arr[j] > arr[maxIndex]) {
+                maxIndex = j;
             }
         }
-        if(minIndex != i) {
-            (*swap)++;
+        if(maxIndex != i) {
             int temp = arr[i];
-            arr[i] = arr[minIndex];
-            arr[minIndex] = temp;
-            (*assigns)+=3;
+            arr[i] = arr[maxIndex];
+            arr[maxIndex] = temp;
         }
     }
 }
-void insertionSort(int arr[], int n, int *comps, int *shift){
+*/
+/*
+void insertionSort(int arr[], int n){
     for (int i = 1; i < n; i++) {
         int key = arr[i],j = i - 1;
-        (*comps)++;
-        while (j >= 0 && arr[j] > key) {
+        while (j >= 0 && arr[j] < key) {
             arr[j + 1] = arr[j];
             j--;
-            (*shift)++;
         }
         arr[j + 1] = key;
     }
 }
-
+*/
 int main(){
     time_t t;
     srand((unsigned)time(&t));
-    int arr[20],a[20],b[20],c[20];
+    int arr[20];
+    initializeArray(arr, 20, -100, 100);
+    //bubbleSort(arr,20);
+    //selectionSort(arr,20);
+    //insertionSort(arr,20);
     for(int i=0;i<20;i++){
-        
+        printf("%d ",arr[i]);
     }
+    return 0;
 }
