@@ -40,5 +40,8 @@ void main() {
     Stack s;
     init(&s);
     fgets(str,sizeof(str),stdin);
-
+    for(int i=0;i<strlen(str);i++){
+        char ch=str[i];
+        if
+    }
 }

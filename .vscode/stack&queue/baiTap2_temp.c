@@ -61,7 +61,7 @@ int main(){
                 printf("Error at %d\n",i);
                 if(top=='(') str[i]=')';
                 else if(top=='[') str[i]=']';
-                else if(top=='{') str[i]=']';
+                else if(top=='{') str[i]='}';
                 error++;
             } 
         }
