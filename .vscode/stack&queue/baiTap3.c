@@ -1,7 +1,6 @@
 #include "stdio.h"
 #include "string.h"
 #include "stdlib.h"
-#include "ctype.h"
 #define MAX 100
 typedef struct Stack_type{
     char a[MAX];
@@ -60,32 +59,34 @@ void hauTo(char *infix,char *postfix){
     while (!isEmpty(&s)) {
         postfix[j++] = pop(&s);
     }
-    postfix[j] = '\0';
+    postfix[j++] = '\0';
 }
-int evaluate(char *expr) {
+int evaluate(char *str){
     Stack s;
     init(&s);
-    for (int i = 0; expr[i] != '\0'; i++) {
-        char ch = expr[i];
-        if (isdigit(ch)) {
-            push(&s, ch - '0');
-        } else if (ch == '+' || ch == '-' || ch == '*' || ch == '/') {
-            int val2 = pop(&s);
-            int val1 = pop(&s);
-            int result;
+    for(int i=0;i<strlen(str);i++) {
+        char ch=str[i];
+        if (ch>=0 && ch<=9){
+            push(&s,ch-'0');
+        }else if(ch=='+'||ch=='-'||ch=='*'||ch=='/'){
+            int val2=pop(&s);
+            int val1=pop(&s);
+            float result;
             switch (ch) {
                 case '+': result = val1 + val2; break;
                 case '-': result = val1 - val2; break;
                 case '*': result = val1 * val2; break;
                 case '/': 
-                    if (val2 != 0) result = val1 / val2; 
+                    /*if (val2 != 0)*/ result =(float) val1 / val2; break;
+                    /*
                     else {
-                        printf("Error: Division by zero\n");
+                        printf("\nError: Division by zero\n");
                         return -1;
                     }
                     break;
+                    */
                 default:
-                    printf("Invalid operator\n");
+                    printf("\nInvalid operator\n");
                     return -1;
             }
             push(&s, result);
@@ -93,11 +94,12 @@ int evaluate(char *expr) {
     }
     return pop(&s);
 }
-void main() {
+void main(){
     char str[MAX],rs1[MAX];
     fgets(str,sizeof(str),stdin);
+    str[strcspn(str, "\n")] = '\0';
     hauTo(str,rs1);
     printf("Postfix : %s",rs1);
-    int rs2 = evaluate(str);
-    printf("\nResult : %d",rs2);
+    float rs2 = evaluate(str);
+    printf("\nResult : %.2f",rs2);
 }
