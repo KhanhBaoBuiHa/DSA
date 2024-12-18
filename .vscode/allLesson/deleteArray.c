@@ -17,7 +17,6 @@ int main(){
     int a[] = {1,4,3,7,5};
     int n = 5;
     int index = 2;
-
     int assigns=0;
     deleteArray(a,&n,index,&assigns);
     for(int i = 0; i < n; i++){
