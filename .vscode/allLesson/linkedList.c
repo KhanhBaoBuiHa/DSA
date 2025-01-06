@@ -19,12 +19,21 @@ void init(LinkedList* list) {
 
 //Hàm tạo node mới
 Node* makeNode(int data){
-    
+    Node* node =(Node*)malloc(sizeof(Node));
+    node->data=data;
+    node->next=NULL;
+    return node;
 }
 
 //Hàm chèn node mới vào đầu danh sách
 void insertHead(int data, LinkedList* list){
-
+    Node* v=makeNode(data);
+    if(list->head==NULL){
+        list->head=v;
+    }else{
+        v->next=list->head;
+        list->head=v;
+    }
 }
 //Hàm in linked list
 void printList(LinkedList* list){
@@ -37,7 +46,13 @@ void printList(LinkedList* list){
     }
     printf("\n");
 }
-
+void freeList(LinkedList* list){
+    while(list->head != NULL){
+        Node* t = list->head;
+        list->head = list->head->next;
+        free(t);
+    }
+}
 //Hàm main
 int main(){
     LinkedList list;
