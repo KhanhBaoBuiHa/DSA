@@ -1,29 +1,25 @@
 #include "stdio.h"
-#include "time.h"
 #include "stdlib.h"
-void initializeArray(int arr[], int n, int min, int max) {
-    for (int i = 0; i < n; i++) {
-        arr[i] = min +(rand() % (max - min + 1));
-    }
-}
 typedef struct NodeType {
     int data;
     struct NodeType* next;
-} Node;
+}Node;
 
-typedef struct LinkedListType {
+typedef struct LinkedListType{
     Node* head;
-} LinkedList;
+}LinkedList;
 
 void init(LinkedList* list) {
     list->head = NULL;
 }
+
 Node* makeNode(int data){
     Node* node =(Node*)malloc(sizeof(Node));
     node->data=data;
     node->next=NULL;
     return node;
 }
+
 void insertHead(int data, LinkedList* list){
     Node* v=makeNode(data);
     if(list->head==NULL){
@@ -33,7 +29,6 @@ void insertHead(int data, LinkedList* list){
         list->head=v;
     }
 }
-
 void freeList(LinkedList* list){
     while(list->head != NULL){
         Node* t = list->head;
@@ -41,32 +36,41 @@ void freeList(LinkedList* list){
         free(t);
     }
 }
+void delete(LinkedList* list,int position){
+    if(position==0){
+        if(list->head==NULL) return;
+        Node *t=list->head;
+        list->head=list->head->next;
+        free(t);
+        return;
+    }
+    Node* current=list->head;
+    for(int i=0;i<position-1;i++){
+        if(current==NULL) return;
+        list->head = list->head->next;
+    }
+    Node* t = list->head->next;
+    current->next = t->next;
+    free(t);
+}
 void printList(LinkedList* list){
     Node* node = list->head;
     while (node != NULL) {
-        printf("Node address: %p | ", &(node->data));
+        printf("Node address: %p | ", node);
         printf("data = %d| ", node->data);
         printf("next node address = %p\n ", node->next);
         node = node->next;
     }
-    printf("\n");
-}
-void insert(LinkedList* list, int data){
-    makeNode(data);
-    Node* node=list->head;
-    while(data != NULL){
-        
-    }
-}
-void delete(LinkedList* list, int value){
-
 }
 int main(){
     LinkedList list;
     init(&list);
-    time_t t;
-    srand((unsigned)time(&t));
-    int arr[10];
-    initializeArray(arr,10,-100,100);
-
+    int a[6]={2,3,4,5,6,7};
+    for(int i=0;i<6;i++){
+        insertHead(a[i],&list);
+    }
+    delete(&list,2);
+    printList(&list);
+    freeList(&list);
+    return 0;
 }
