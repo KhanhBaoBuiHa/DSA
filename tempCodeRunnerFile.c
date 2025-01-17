@@ -14,12 +14,14 @@ typedef struct NodeType {
     struct NodeType* next;
 }Node;
 
-typedef struct Stacktype{
-    Node* top;
-}Stack;
+typedef struct Queuetype{
+    Node* head;
+    Node* tail;
+}Queue;
 
-void init(Stack* s) {
-    s->top = NULL;
+void init(Queue* q){
+    q->head = NULL;
+    q->tail = NULL;
 }
 
 Node* makeNode(int data){
@@ -29,70 +31,77 @@ Node* makeNode(int data){
     return node;
 }
 
-int isEmpty(Stack* s){
-    return s->top == NULL;
+int isEmpty(Queue* q){
+    return q->head == NULL;
 }
 
-int isFull(Stack* s){
-    return s->top == MAX - 1;
+int isFull(Queue* q){
+    return q->tail == MAX - 1;
 }
 
-void push(Stack* s, int value){
+void put(Queue* q, int value){
     Node* node=makeNode(value);
-    node->next=s->top;
-    s->top=node;
-}
-int pop(Stack* s){
-    if(!isEmpty(s)){
-        Node* temp=s->top;
-        int data=temp->data;
-        s->top=temp->next;
-        free(temp);
-        return data;
+    if (q->tail == NULL) {
+        q->head = node;
+        q->tail = node;
+    }
+    else{
+    q->tail->next=node;
+    q->tail=node;
     }
 }
 
-void displayStack(Stack* stack) {
-    Node* current = stack->top;
-    printf("Stack: ");
+int get(Queue* q){
+    if(!isEmpty(q)){
+        Node* temp=q->head;
+        int data=temp->data;
+        q->head=temp->next;
+        if(q->head==NULL) q->tail=NULL;
+        free(temp);
+        return data;
+    }
+    return -1;
+}
+void displayQueue(Queue* q){
+    Node* current = q->head;
+    printf("Queue: ");
     while (current != NULL) {
         printf("%d -> ", current->data);
         current = current->next;
     }
-    printf("NULL\n");
+    printf("\n");
 }
-void freeStack(Stack* s){
-    while(s->top != NULL){
-        Node* t = s->top;
-        s->top = s->top->next;
+void freeQueue(Queue* q){
+    while(q->head != NULL){
+        Node* t = q->head;
+        q->head = q->tail->next;
         free(t);
     }
 }
-
 int main(){
-    Stack s;
-    init(&s);
+    Queue q;
+    init(&q);
     time_t t;
-    srand((unsigned)time(&t));
+    srand((unsigned) time(&t));
     int arr[10];
-    initializeArray(arr, 10, -100, 100);
-    printf("PUSH\n");
-    for (int i = 0; i < 6; i++){
-        printf("push %d: \n",arr[i]);
-        if(!isFull(&s)){
-            push(&s,arr[i]);
-            displayStack(&s);
+    initializeArray(arr,10,-100,100);
+    printf("PUT\n");
+    for(int i=0;i<10;i++){
+        printf("put %d: \n",arr[i]);
+        if(!isFull(&q)){
+            put(&q,arr[i]);
+            displayQueue(&q);
             printf("\n");
         }
-        else printf("Stack is full. \n\n");
+        else printf("Queue is full. \n\n");
     }
-    // pop
-    printf("POP\n");
+    printf("GET\n");
     int i = 0;
-    while (!isEmpty(&s)) {
-        printf("pop %d: %d\n",i, pop(&s));
-        displayStack(&s);
+    while (!isEmpty(&q)) {
+        printf("get %d: %d\n",i, get(&q));
+        displayQueue(&q);
         i++;
         printf("\n");
-     }
+    }
+    return 0;
 }
