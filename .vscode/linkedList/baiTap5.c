@@ -153,7 +153,7 @@ int main(){
         printf("1. Guests assignment\n");
         printf("2. Get group's information\n");
         printf("3. Add new guest\n");
-        printf("4. Cancel group registration\n");
+        printf("4. Check-out group\n");
         printf("5. Display all rooms\n");
         printf("6. Exit\n");
         printf("________________________________________________\n");
@@ -203,4 +203,5 @@ int main(){
                 break;
         }
     }while(choice!=6);
+    return 0;
 }
