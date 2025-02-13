@@ -1,107 +1,112 @@
-#include "stdio.h"
-#include "stdlib.h"
-#include "time.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-#define MAX 10
-
-void initializeArray(int arr[], int n, int min, int max) {
-    for (int i = 0; i < n; i++) {
-        arr[i] = min +(rand() % (max - min + 1));
-    }
-}
 typedef struct NodeType {
     int data;
-    struct NodeType* next;
-}Node;
+    struct NodeType* left, * right;
+} TreeNode;
 
-typedef struct Queuetype{
-    Node* head;
-    Node* tail;
-}Queue;
+typedef struct BinaryTreeType {
+    struct NodeType* root;
+} BinaryTree;
 
-void init(Queue* q){
-    q->head = NULL;
-    q->tail = NULL;
+TreeNode* makeNode(int data) {
+    TreeNode *newNode = (TreeNode*)malloc(sizeof(TreeNode));
+    if (newNode == NULL){
+        printf("Memory allocation failed.\n");
+        exit(1); 
+    } 
+    newNode->data = data;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
 }
 
-Node* makeNode(int data){
-    Node* node =(Node*)malloc(sizeof(Node));
-    node->data=data;
-    node->next=NULL;
-    return node;
-}
-
-int isEmpty(Queue* q){
-    return q->head == NULL;
-}
-
-int isFull(Queue* q){
-    return q->tail == MAX - 1;
-}
-
-void put(Queue* q, int value){
-    Node* node=makeNode(value);
-    if (q->tail == NULL) {
-        q->head = node;
-        q->tail = node;
-    }
-    else{
-    q->tail->next=node;
-    q->tail=node;
+void print(TreeNode* node) {
+    if (node != NULL) {
+        print(node->left);         
+        printf("%d ", node->data); 
+        print(node->right);        
     }
 }
-
-int get(Queue* q){
-    if(!isEmpty(q)){
-        Node* temp=q->head;
-        int data=temp->data;
-        q->head=temp->next;
-        if(q->head==NULL) q->tail=NULL;
-        free(temp);
-        return data;
-    }
-    return -1;
+void init(BinaryTree* tree) {
+    tree->root = NULL;
 }
-void displayQueue(Queue* q){
-    Node* current = q->head;
-    printf("Queue: ");
+
+void insert(BinaryTree* tree, int data) {
+    TreeNode* newNode = makeNode(data);
+    if (tree->root == NULL) {
+        tree->root = newNode;
+        return;
+    }
+
+    TreeNode* current = tree->root;
+    TreeNode* parent = NULL;
+
     while (current != NULL) {
-        printf("%d -> ", current->data);
-        current = current->next;
-    }
-    printf("\n");
-}
-void freeQueue(Queue* q){
-    while(q->head != NULL){
-        Node* t = q->head;
-        q->head = q->tail->next;
-        free(t);
-    }
-}
-int main(){
-    Queue q;
-    init(&q);
-    time_t t;
-    srand((unsigned) time(&t));
-    int arr[10];
-    initializeArray(arr,10,-100,100);
-    printf("PUT\n");
-    for(int i=0;i<10;i++){
-        printf("put %d: \n",arr[i]);
-        if(!isFull(&q)){
-            put(&q,arr[i]);
-            displayQueue(&q);
-            printf("\n");
+        parent = current;
+        if (data < current->data) {
+            current = current->left;
+        } else {
+            current = current->right;
         }
-        else printf("Queue is full. \n\n");
     }
-    printf("GET\n");
-    int i = 0;
-    while (!isEmpty(&q)) {
-        printf("get %d: %d\n",i, get(&q));
-        displayQueue(&q);
-        i++;
-        printf("\n");
+
+    if (data < parent->data) {
+        parent->left = newNode;
+    } else {
+        parent->right = newNode;
     }
+}
+
+void freeTree(TreeNode* node) {
+    if (node != NULL) {
+        freeTree(node->left);   
+        freeTree(node->right);  
+        free(node);             
+    }
+}
+
+int main() {
+    BinaryTree tree;
+
+    init(&tree);
+
+    // 1.1.1
+    int values1[] = {4, 6, 2, 3, 5, 1, 7};
+    int size1 = sizeof(values1) / sizeof(values1[0]);
+    for (int i = 0; i < size1; i++) {
+        insert(&tree, values1[i]);
+    }
+    printf("Binary Tree 1.1.1 (In-order): ");
+    print(tree.root);
+    printf("\n");
+
+    freeTree(tree.root);
+    init(&tree);
+
+    int values2[] = {8, 10, 3, 6, 14, 1, 7, 13, 4};
+    int size2 = sizeof(values2) / sizeof(values2[0]);
+    for (int i = 0; i < size2; i++) {
+        insert(&tree, values2[i]);
+    }
+    printf("Binary Tree 1.1.2 (In-order): ");
+    print(tree.root);
+    printf("\n");
+
+    freeTree(tree.root);
+    init(&tree);
+
+    int values3[] = {50, 25, 75, 10, 33, 56, 89, 4, 11, 40, 52, 61, 82, 95};
+    int size3 = sizeof(values3) / sizeof(values3[0]);
+    for (int i = 0; i < size3; i++) {
+        insert(&tree, values3[i]);
+    }
+    printf("Binary Tree 1.1.3 (In-order): ");
+    print(tree.root);
+    printf("\n");
+
+    freeTree(tree.root);
+
     return 0;
 }

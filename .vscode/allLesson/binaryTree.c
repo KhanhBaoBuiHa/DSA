@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+//Cấu trúc TreeNode thể hiện một nút của cây.
 typedef struct nodeType{
     int data;
     struct nodeType *left, *right;
 } treeNode;
-
+//Cấu trúc BinaryTree lưu trữ cây nhị phân với đại diện là con trỏ kiểu TreeNode tên là root
 typedef struct{
     treeNode *root;
 } binaryTree;
-
+//Hàm makeNode tạo một nút từ phần vùng nhớ được máy tính cấp phát.
 treeNode* makeNode(int data){
     treeNode *newNode = (treeNode*)malloc(sizeof(treeNode));
     newNode->data = data;
@@ -18,11 +18,11 @@ treeNode* makeNode(int data){
     
     return newNode;
 }
-
+//Hàm init khởi tạo nút đầu tiên của cây.
 void init(binaryTree *tree){
     tree->root = NULL;
 }
-
+//Hàm insert chèn nút có giá trị data vào cây
 void insert(binaryTree *tree, int data){
     treeNode *newNode = makeNode(data);
     
@@ -49,7 +49,7 @@ void insert(binaryTree *tree, int data){
         parent->right = newNode;
     }
 }
-
+//Hàm print in cây nhị phân ra màn hình
 void print(treeNode *node){
     if (node != NULL){
         print(node->left);
