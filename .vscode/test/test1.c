@@ -228,22 +228,65 @@ void print(treeNode *node){
         print(node->right);
     }
 }
-//hàm để xoá
-/*
-void delete(binaryTree* tree, int value){
-    TreeNode* current = tree->root;
-    TreeNode* parent = NULL;
-    while (current != NULL && current->data != value){
-        parent = current;
-        if (value < current->data){
-            current = current->left;
-        } 
-        else{
-            current = current->right;
+//hàm để xoá một nút trong cây
+void delete(binaryTree *tree, int val){
+    treeNode *curr = tree->root;
+    treeNode *prev = NULL;
+    while (1){
+        if(curr == NULL){
+            printf("Not found!\n");
+            return;
+        }
+        if (val < curr->data){
+            prev = curr;
+            curr = curr->left;
+        } else if (val > curr->data){
+            prev = curr;
+            curr = curr->right;
+        } else if (val == curr->data){
+            if (curr->left==NULL && curr->right==NULL){
+                if(prev->left == curr){
+                    prev->left = NULL;
+                }else{
+                    prev->right = NULL;
+                }
+                free(curr);
+                return;
+            } else if (curr->left == NULL){
+                if (prev->left == curr){
+                    prev->left = curr->right;
+                }else{
+                    prev->right = curr->right;
+                }
+                free(curr);
+                return;
+            } else if (curr->right == NULL){
+                if (prev->left == curr){
+                    prev->left = curr->left;
+                }else{
+                    prev->right = curr->left;
+                }
+                free(curr);
+                return;
+            } else {
+                treeNode *temp = curr->right;
+                treeNode *pretemp = curr;
+                while (temp->left != NULL){
+                    pretemp=temp;
+                    temp = temp->left;
+                }
+                curr->data = temp->data;
+                
+                if (pretemp->left == temp)
+                    pretemp->left = temp->right;
+                else pretemp->right = temp->right;
+                free(temp);
+                return;
+            }
         }
     }
 }
-*/
+
 int main(){
     binaryTree tree;
     init(&tree);
@@ -253,6 +296,10 @@ int main(){
         insert(&tree, arr[i]);
     }
     print(tree.root);
-
+    delete(&tree, 7);
+    delete(&tree, 50);
+    delete(&tree, 65);
+    printf("\n");
+    print(tree.root);
     return 0;
 }
