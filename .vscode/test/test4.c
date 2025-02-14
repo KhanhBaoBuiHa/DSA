@@ -42,7 +42,7 @@ void printList(LinkedList* list){
     while (node != NULL) {
         printf("Node address: %p | ", &(node->data));
         printf("data = %d| ", node->data);
-        printf("next node address = %p\n ", node->next);
+        printf("next node address = %p\n", node->next);
         node = node->next;
     }
     printf("\n");
@@ -68,7 +68,7 @@ void delete(int value, LinkedList* list){
         }
     }
 }
-
+//hàm 
 void freeList(LinkedList* list){
     while(list->head != NULL){
         Node* t = list->head;
@@ -84,6 +84,9 @@ int main(){
     for(int i = 0; i < 10; i++)
        insertHead(i, &list); 
     //In danh sách
+    printList(&list);
+    //hàm sau khi xoá
+    delete(5,&list);
     printList(&list);
     return 0;
 }
